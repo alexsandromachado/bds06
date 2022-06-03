@@ -1,5 +1,6 @@
 package com.devsuperior.movieflix.dto;
 
+import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
 
 public class MovieDTO {
@@ -9,26 +10,35 @@ public class MovieDTO {
 	private String subTitle;
 	private Integer year;
 	private String imgUrl;
+	private String synopsis;
+	private GenreDTO genre;
 
 	public MovieDTO() {
 	}
 
-	public MovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl) {
+	public MovieDTO(Long id, String title, String subTitle, Integer year, String imgUrl, String synopsis) {
 		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.year = year;
 		this.imgUrl = imgUrl;
+		this.synopsis = synopsis;
 	}
 	
-	public MovieDTO(Movie movie) {
-		id = movie.getId();
-		title = movie.getTitle();
-		subTitle = movie.getSubTitle();
-		year = movie.getYear();
-		imgUrl = movie.getImgUrl();
+	public MovieDTO(Movie entity) {
+		id = entity.getId();
+		title = entity.getTitle();
+		subTitle = entity.getSubTitle();
+		year = entity.getYear();
+		imgUrl = entity.getImgUrl();
+		synopsis = entity.getSynopsis();
 	}
 
+	public MovieDTO(Movie entity, Genre genre) {
+		this(entity);
+		this.setGenre(new GenreDTO(genre));
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -67,5 +77,21 @@ public class MovieDTO {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
+	}
+
+	public String getSynopsis() {
+		return synopsis;
+	}
+
+	public void setSynopsis(String synopsis) {
+		this.synopsis = synopsis;
+	}
+
+	public GenreDTO getGenre() {
+		return genre;
+	}
+
+	public void setGenre(GenreDTO genre) {
+		this.genre = genre;
 	}
 }
